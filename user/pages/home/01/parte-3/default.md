@@ -1,9 +1,10 @@
 ---
-title: 'Ni bienvenida sin castigo'
+title: 'No hay tres sin cuatro'
+part: '03'
 ---
 
-# Ni bienvenida sin castigo
-## Parte 2
+# No hay tres sin cuatro
+## Parte 3
 
 <!-- start whedon ipsum -->
 Now I'm just a big, fluffy puppy with bad teeth. The living legend needs eggs! Looking in windows, knocking on doors. No, a bad day is when someone's yellin' spooks the cattle.

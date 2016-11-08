@@ -5,13 +5,12 @@ home:
   hide_in_urls: true
 
 pages:
-  theme: antimatter
+  theme: gente-triste
   markdown:
     extra: false
   process:
     markdown: true
     twig: false
-
 cache:
   enabled: true
   check:
