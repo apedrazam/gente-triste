@@ -28,7 +28,7 @@ links:
         src: grav-plugin-markdown-notices
         path: user/plugins/markdown-notices
         scm: github
-    antimatter:
+    gente-triste:
         src: grav-theme-antimatter
         path: user/themes/antimatter
         scm: github

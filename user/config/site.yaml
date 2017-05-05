@@ -1,7 +1,7 @@
-title: Grav
+title: 'Gente Triste'
 author:
-  name: Joe Bloggs
-  email: 'joe@test.com'
+  name: Adrián Pedraza
+  email: 'hello@hyphenfrog.com'
 metadata:
-    description: 'Grav is an easy to use, yet powerful, open source flat-file CMS'
-
+    description: 'Una historia sobre gente de su tiempo fuera de su realidad'
+taxonomies: [category,tag]

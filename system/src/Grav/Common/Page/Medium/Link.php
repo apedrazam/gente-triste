@@ -57,7 +57,7 @@ class Link implements RenderableInterface
      *
      * @param string $method
      * @param mixed $args
-     * @return mixed
+     * @return $this|mixed
      */
     public function __call($method, $args)
     {

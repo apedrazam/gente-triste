@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Yaml;
 class VersionCommand extends ConsoleCommand
 {
     /**
-     * @var GPM
+     * @var
      */
     protected $gpm;
 

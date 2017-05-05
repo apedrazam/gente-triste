@@ -2,15 +2,15 @@ absolute_urls: false
 
 home:
   alias: '/home'
+  hide_in_urls: true
 
 pages:
-  theme: antimatter
+  theme: gente-triste
   markdown:
     extra: false
   process:
     markdown: true
     twig: false
-
 cache:
   enabled: true
   check:
@@ -40,5 +40,3 @@ debugger:
   twig: true
   shutdown:
     close_connection: true
-gpm:
-  verify_peer: true

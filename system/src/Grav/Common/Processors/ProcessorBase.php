@@ -8,18 +8,10 @@
 
 namespace Grav\Common\Processors;
 
-use Grav\Common\Grav;
+class ProcessorBase {
 
-class ProcessorBase
-{
-    /**
-     * @var Grav
-     */
-    protected $container;
-
-    public function __construct(Grav $container)
-    {
-        $this->container = $container;
-    }
+  	public function __construct($container) {
+    	$this->container = $container;
+  	}
 
 }

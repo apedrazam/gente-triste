@@ -70,45 +70,13 @@ abstract class Folder
 
         /** @var \RecursiveDirectoryIterator $file */
         foreach ($iterator as $filepath => $file) {
-            try {
-                $file_modified = $file->getMTime();
-                if ($file_modified > $last_modified) {
-                    $last_modified = $file_modified;
-                }
-            } catch (\Exception $e) {
-                Grav::instance()['log']->error('Could not process file: ' . $e->getMessage());
+            $file_modified = $file->getMTime();
+            if ($file_modified > $last_modified) {
+                $last_modified = $file_modified;
             }
         }
 
         return $last_modified;
-    }
-
-    /**
-     * Recursively md5 hash all files in a path
-     *
-     * @param $path
-     * @return string
-     */
-    public static function hashAllFiles($path)
-    {
-        $flags = \RecursiveDirectoryIterator::SKIP_DOTS;
-        $files = [];
-
-        /** @var UniformResourceLocator $locator */
-        $locator = Grav::instance()['locator'];
-        if ($locator->isStream($path)) {
-            $directory = $locator->getRecursiveIterator($path, $flags);
-        } else {
-            $directory = new \RecursiveDirectoryIterator($path, $flags);
-        }
-
-        $iterator = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::SELF_FIRST);
-
-        foreach ($iterator as $filepath => $file) {
-            $files[] = $file->getPath() . $file->getMTime();
-        }
-
-        return md5(serialize($files));
     }
 
     /**
@@ -211,7 +179,7 @@ abstract class Folder
         /** @var UniformResourceLocator $locator */
         $locator = Grav::instance()['locator'];
         if ($recursive) {
-            $flags = \RecursiveDirectoryIterator::SKIP_DOTS + \FilesystemIterator::UNIX_PATHS
+            $flags = \RecursiveDirectoryIterator::SKIP_DOTS + \FilesystemIterator::UNIX_PATHS 
                 + \FilesystemIterator::CURRENT_AS_SELF + \FilesystemIterator::FOLLOW_SYMLINKS;
             if ($locator->isStream($path)) {
                 $directory = $locator->getRecursiveIterator($path, $flags);
@@ -344,10 +312,12 @@ abstract class Folder
         // Make sure that path to the target exists before moving.
         self::create(dirname($target));
 
+        // Just rename the directory.
         $success = @rename($source, $target);
+
         if (!$success) {
-            self::copy($source, $target);
-            self::delete($source);
+            $error = error_get_last();
+            throw new \RuntimeException($error['message']);
         }
 
         // Make sure that the change will be detected when caching.
@@ -388,6 +358,7 @@ abstract class Folder
     /**
      * @param  string  $folder
      * @throws \RuntimeException
+     * @internal
      */
     public static function mkdir($folder)
     {
@@ -397,6 +368,7 @@ abstract class Folder
     /**
      * @param  string  $folder
      * @throws \RuntimeException
+     * @internal
      */
     public static function create($folder)
     {
@@ -431,7 +403,10 @@ abstract class Folder
 
         // If the destination directory does not exist create it
         if (!is_dir($dest)) {
-            Folder::mkdir($dest);
+            if (!mkdir($dest)) {
+                // If the destination directory could not be created stop processing
+                return false;
+            }
         }
 
         // Open the source directory to read in files

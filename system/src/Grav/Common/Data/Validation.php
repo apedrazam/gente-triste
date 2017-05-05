@@ -9,7 +9,6 @@
 namespace Grav\Common\Data;
 
 use Grav\Common\Grav;
-use Grav\Common\Utils;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
@@ -339,7 +338,7 @@ class Validation
 
     protected static function filterNumber($value, array $params, array $field)
     {
-        return (string)(int)$value !== (string)(float)$value ? (float) $value : (int) $value;
+        return (int) $value;
     }
 
     protected static function filterDateTime($value, array $params, array $field)
@@ -570,7 +569,6 @@ class Validation
             return null;
         }
 
-
         if ($options) {
             $useKey = isset($field['use']) && $field['use'] == 'keys';
             foreach ($values as $key => $value) {
@@ -582,22 +580,9 @@ class Validation
             foreach ($values as $key => $value) {
                 if (is_array($value)) {
                     $value = implode(',', $value);
-                    $values[$key] =  array_map('trim', explode(',', $value));
-                } else {
-                    $values[$key] =  trim($value);
-                }
-            }
-        }
-
-        if (isset($field['ignore_empty']) && Utils::isPositive($field['ignore_empty'])) {
-            foreach ($values as $key => $value) {
-                foreach ($value as $inner_key => $inner_value) {
-                    if ($inner_value == '') {
-                        unset($value[$inner_key]);
-                    }
                 }
 
-                $values[$key] = $value;
+                $values[$key] =  array_map('trim', explode(',', $value));
             }
         }
 

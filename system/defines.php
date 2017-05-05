@@ -8,13 +8,10 @@
 
 // Some standard defines
 define('GRAV', true);
-define('GRAV_VERSION', '1.2.4');
+define('GRAV_VERSION', '1.1.5');
 define('GRAV_TESTING', false);
 define('DS', '/');
-
-if (!defined('GRAV_PHP_MIN')) {
-    define('GRAV_PHP_MIN', '5.5.9');
-}
+define('GRAV_PHP_MIN', '5.5.9');
 
 // Directories and Paths
 if (!defined('GRAV_ROOT')) {

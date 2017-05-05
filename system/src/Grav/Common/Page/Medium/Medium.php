@@ -70,7 +70,7 @@ class Medium extends Data implements RenderableInterface
     /**
      * Return just metadata from the Medium object
      *
-     * @return Data
+     * @return $this
      */
     public function meta()
     {
@@ -84,7 +84,7 @@ class Medium extends Data implements RenderableInterface
      */
     public function addMetaFile($filepath)
     {
-        $this->merge((array)CompiledYamlFile::instance($filepath)->content());
+        $this->merge(CompiledYamlFile::instance($filepath)->content());
     }
 
     /**
@@ -100,9 +100,7 @@ class Medium extends Data implements RenderableInterface
         }
 
         $alternative->set('ratio', $ratio);
-        $width = $alternative->get('width');
-
-        $this->alternatives[$width] = $alternative;
+        $this->alternatives[(float) $ratio] = $alternative;
     }
 
     /**
@@ -150,8 +148,8 @@ class Medium extends Data implements RenderableInterface
     /**
      * Get/set querystring for the file's url
      *
-     * @param  string  $querystring
-     * @param  boolean $withQuestionmark
+     * @param  string  $hash
+     * @param  boolean $withHash
      * @return string
      */
     public function querystring($querystring = null, $withQuestionmark = true)
@@ -229,7 +227,7 @@ class Medium extends Data implements RenderableInterface
         }
 
         if (empty($attributes['alt'])) {
-            if (!empty($alt) || $alt === '') {
+            if (!empty($alt)) {
                 $attributes['alt'] = $alt;
             } elseif (!empty($this->items['alt'])) {
                 $attributes['alt'] = $this->items['alt'];

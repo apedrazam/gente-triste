@@ -8,13 +8,12 @@
 
 namespace Grav\Common\Processors;
 
-class InitializeProcessor extends ProcessorBase implements ProcessorInterface
-{
+class InitializeProcessor extends ProcessorBase implements ProcessorInterface {
+
     public $id = 'init';
     public $title = 'Initialize';
 
-    public function process()
-    {
+    public function process() {
         $this->container['config']->debug();
 
         // Use output buffering to prevent headers from being sent too early.
@@ -37,4 +36,5 @@ class InitializeProcessor extends ProcessorBase implements ProcessorInterface
 
         $this->container->setLocale();
     }
+
 }
